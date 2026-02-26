@@ -777,7 +777,7 @@ transition: opacity 0.15s;
         <button class="numpad-btn" onclick="numpad(7)">7<span class="sub">PQRS</span></button>
         <button class="numpad-btn" onclick="numpad(8)">8<span class="sub">TUV</span></button>
         <button class="numpad-btn" onclick="numpad(9)">9<span class="sub">WXYZ</span></button>
-        <button class="numpad-btn special"></button>
+        <button class="numpad-btn special" onclick="history.back()" style="font-size:13px;color:rgba(255,255,255,0.7);">Cancel</button>
         <button class="numpad-btn" onclick="numpad(0)">0</button>
         <button class="numpad-btn delete special" onclick="numpadDel()">⌫</button>
       </div>
@@ -1297,6 +1297,7 @@ function flash(cb) {
 
 // ── LOCK ─────────────────────────────────────────────────
 function showPasscode() {
+  history.pushState({ scene: 'passcode' }, '');
   show('passcode-screen');
   passcodeInput = '';
   updateDots();
@@ -1318,7 +1319,7 @@ function numpad(n) {
   if(passcodeInput.length === 4) {
     setTimeout(()=>{
       if(passcodeInput === PASSCODE) {
-        flash(()=>show('home-screen'));
+        flash(()=>{ history.pushState({ scene: 'home' }, ''); show('home-screen'); });
       } else {
         for(let i=0;i<4;i++) document.getElementById('d'+i).classList.add('error');
         setTimeout(()=>{ passcodeInput=''; updateDots(); }, 600);
@@ -1339,10 +1340,11 @@ function goHome() {
 
 // ── APPS ─────────────────────────────────────────────────
 function openApp(name) {
+  history.pushState({ scene: 'app', name }, '');
   document.getElementById(name+'-screen').classList.add('active');
 }
 function closeApp(name) {
-  document.getElementById(name+'-screen').classList.remove('active');
+  history.back();
 }
 
 // ── THREADS ──────────────────────────────────────────────
@@ -1393,11 +1395,12 @@ function openThread(id) {
     `;
   }
 
+  history.pushState({ scene: 'thread' }, '');
   document.getElementById('thread-screen').classList.add('active');
 }
 
 function closeThread() {
-  document.getElementById('thread-screen').classList.remove('active');
+  history.back();
 }
 
 // ── GRAY APP ─────────────────────────────────────────────
@@ -1499,6 +1502,22 @@ function scalePhone() {
 
 scalePhone();
 window.addEventListener('resize', scalePhone);
+
+// ── HISTORY / BACK BUTTON ────────────────────────────────
+history.replaceState({ scene: 'lock' }, '');
+
+window.addEventListener('popstate', e => {
+  const scene = (e.state || {}).scene;
+
+  if(scene === 'thread' || document.getElementById('thread-screen').classList.contains('active')) {
+    document.getElementById('thread-screen').classList.remove('active');
+  } else if(scene === 'app' || scene === 'home') {
+    document.querySelectorAll('.app-screen').forEach(s => s.classList.remove('active'));
+  } else if(scene === 'passcode' || scene === 'lock') {
+    document.querySelectorAll('.app-screen').forEach(s => s.classList.remove('active'));
+    show('lock-screen');
+  }
+});
 </script>
 
 </body>
