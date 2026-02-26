@@ -1,0 +1,345 @@
+
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Phone Mystery – Prototype</title>
+<link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+:root {
+–glass: rgba(255,255,255,0.12);
+–glass-border: rgba(255,255,255,0.18);
+–blur: blur(20px);
+–radius: 22px;
+–icon-size: 60px;
+–accent: #a78bfa;
+}
+
+body {
+background: #0a0a0f;
+display: flex;
+align-items: center;
+justify-content: center;
+min-height: 100vh;
+font-family: -apple-system, ‘SF Pro Display’, sans-serif;
+overflow: hidden;
+}
+
+/* ── PHONE SHELL ─────────────────────────────────────── */
+.phone {
+width: 393px;
+height: 852px;
+background: #000;
+border-radius: 54px;
+border: 2px solid #2a2a2a;
+position: relative;
+overflow: hidden;
+box-shadow:
+0 0 0 1px #111,
+0 40px 120px rgba(0,0,0,0.9),
+inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+/* Dynamic Island */
+.dynamic-island {
+position: absolute;
+top: 12px;
+left: 50%;
+transform: translateX(-50%);
+width: 126px;
+height: 37px;
+background: #000;
+border-radius: 20px;
+z-index: 100;
+border: 1px solid #1a1a1a;
+}
+
+/* ── WALLPAPER ───────────────────────────────────────── */
+.wallpaper {
+position: absolute;
+inset: 0;
+background:
+radial-gradient(ellipse at 20% 10%, rgba(100,60,180,0.6) 0%, transparent 50%),
+radial-gradient(ellipse at 80% 90%, rgba(180,80,60,0.5) 0%, transparent 50%),
+radial-gradient(ellipse at 60% 40%, rgba(40,100,180,0.4) 0%, transparent 50%),
+linear-gradient(180deg, #0d0d1a 0%, #1a0d0d 50%, #0d1a1a 100%);
+}
+
+/* ── SCREENS ─────────────────────────────────────────── */
+.screen {
+position: absolute;
+inset: 0;
+display: none;
+flex-direction: column;
+z-index: 10;
+}
+.screen.active { display: flex; }
+
+/* ── STATUS BAR ──────────────────────────────────────── */
+.status-bar {
+height: 59px;
+display: flex;
+align-items: flex-end;
+justify-content: space-between;
+padding: 0 28px 8px;
+color: #fff;
+font-size: 15px;
+font-weight: 600;
+z-index: 50;
+flex-shrink: 0;
+}
+.status-time { font-size: 17px; font-weight: 600; letter-spacing: -0.3px; }
+.status-icons { display: flex; gap: 6px; align-items: center; font-size: 12px; }
+.battery {
+width: 27px; height: 13px;
+border: 1.5px solid rgba(255,255,255,0.6);
+border-radius: 3px;
+position: relative;
+margin-left: 2px;
+}
+.battery::before {
+content:’’; position: absolute;
+right: -5px; top: 50%; transform: translateY(-50%);
+width: 3px; height: 6px;
+background: rgba(255,255,255,0.6);
+border-radius: 0 2px 2px 0;
+}
+.battery::after {
+content:’’; position: absolute;
+inset: 2px; right: 5px;
+background: #fff; border-radius: 1px;
+}
+
+/* ── LOCK SCREEN ─────────────────────────────────────── */
+#lock-screen {
+background: transparent;
+align-items: center;
+}
+.lock-time {
+margin-top: 80px;
+font-size: 86px;
+font-weight: 200;
+color: #fff;
+letter-spacing: -4px;
+line-height: 1;
+text-shadow: 0 0 40px rgba(255,255,255,0.15);
+}
+.lock-date {
+font-size: 20px;
+color: rgba(255,255,255,0.8);
+margin-top: 6px;
+font-weight: 400;
+letter-spacing: 0.3px;
+}
+.lock-hint {
+margin-top: 240px;
+color: rgba(255,255,255,0.5);
+font-size: 15px;
+letter-spacing: 0.5px;
+animation: pulse 2s infinite;
+}
+.swipe-indicator {
+position: absolute;
+bottom: 50px;
+font-size: 14px;
+color: rgba(255,255,255,0.45);
+letter-spacing: 0.5px;
+}
+@keyframes pulse { 0%,100%{opacity:.4} 50%{opacity:.9} }
+
+/* ── PASSCODE SCREEN ─────────────────────────────────── */
+#passcode-screen {
+background: rgba(0,0,0,0.75);
+backdrop-filter: blur(40px);
+align-items: center;
+}
+.passcode-title {
+margin-top: 100px;
+font-size: 24px;
+font-weight: 500;
+color: #fff;
+letter-spacing: 0.2px;
+}
+.passcode-subtitle {
+font-size: 14px;
+color: rgba(255,255,255,0.5);
+margin-top: 8px;
+}
+.passcode-dots {
+display: flex;
+gap: 18px;
+margin-top: 36px;
+}
+.passcode-dot {
+width: 14px; height: 14px;
+border-radius: 50%;
+border: 1.5px solid rgba(255,255,255,0.6);
+background: transparent;
+transition: background 0.15s;
+}
+.passcode-dot.filled { background: #fff; border-color: #fff; }
+.passcode-dot.error { background: #ff4444; border-color: #ff4444; }
+
+.numpad {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 14px;
+margin-top: 44px;
+padding: 0 40px;
+width: 100%;
+}
+.numpad-btn {
+height: 72px;
+border-radius: 50%;
+border: none;
+background: rgba(255,255,255,0.1);
+color: #fff;
+font-size: 28px;
+font-weight: 300;
+cursor: pointer;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+transition: background 0.1s, transform 0.08s;
+line-height: 1;
+backdrop-filter: blur(10px);
+}
+.numpad-btn:active { background: rgba(255,255,255,0.25); transform: scale(0.95); }
+.numpad-btn .sub { font-size: 9px; letter-spacing: 1.5px; color: rgba(255,255,255,0.6); margin-top: 1px; }
+.numpad-btn.special { background: transparent; font-size: 15px; }
+.numpad-btn.delete { font-size: 22px; }
+
+/* ── HOME SCREEN ─────────────────────────────────────── */
+#home-screen { overflow: hidden; }
+
+.home-widgets {
+display: flex;
+gap: 14px;
+padding: 14px 20px 0;
+flex-shrink: 0;
+}
+.widget {
+flex: 1;
+background: var(–glass);
+backdrop-filter: var(–blur);
+border: 1px solid var(–glass-border);
+border-radius: 20px;
+padding: 14px 16px;
+color: #fff;
+}
+.widget-date .day { font-size: 13px; font-weight: 500; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px; }
+.widget-date .num { font-size: 42px; font-weight: 200; line-height: 1.1; letter-spacing: -2px; }
+.widget-weather .city { font-size: 13px; opacity: 0.7; }
+.widget-weather .temp { font-size: 36px; font-weight: 200; letter-spacing: -1px; }
+.widget-weather .cond { font-size: 13px; opacity: 0.6; margin-top: 2px; }
+
+.app-grid {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 18px;
+padding: 22px 24px 0;
+flex: 1;
+align-content: start;
+}
+.app-icon {
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 5px;
+cursor: pointer;
+}
+.app-icon-img {
+width: var(–icon-size);
+height: var(–icon-size);
+border-radius: 15px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 28px;
+transition: transform 0.12s, filter 0.12s;
+position: relative;
+overflow: hidden;
+}
+.app-icon:active .app-icon-img { transform: scale(0.88); filter: brightness(0.85); }
+.app-icon-label {
+font-size: 11px;
+color: #fff;
+text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+font-weight: 400;
+}
+
+/* App colors */
+.icon-messages { background: linear-gradient(145deg, #2dce56, #1aad35); }
+.icon-mail { background: linear-gradient(145deg, #1b8ef8, #0a6bdb); }
+.icon-social { background: linear-gradient(145deg, #55aaf7, #2c88e8); }
+.icon-ai { background: linear-gradient(145deg, #a855f7, #7c3aed); }
+.icon-photos { background: linear-gradient(145deg, #ff7043, #e64a19); }
+.icon-calendar { background: linear-gradient(145deg, #ff3b30, #ff6b35); box-shadow: 0 2px 8px rgba(255,59,48,0.3); }
+.icon-maps { background: linear-gradient(145deg, #4caf50, #2e7d32); }
+.icon-utilities { background: linear-gradient(145deg, #607d8b, #455a64); }
+.icon-flashlight { background: linear-gradient(145deg, #37474f, #263238); }
+.icon-calculator { background: linear-gradient(145deg, #424242, #212121); }
+.icon-voice { background: linear-gradient(145deg, #ef5350, #c62828); }
+.icon-compass { background: linear-gradient(145deg, #f5f5f5, #bdbdbd); color: #333; }
+.icon-gray { background: linear-gradient(145deg, #4a4a4a, #2a2a2a); border: 1px solid #555; }
+
+/* Calendar icon detail */
+.calendar-inner { display: flex; flex-direction: column; align-items: center; padding-top: 6px; }
+.cal-month { font-size: 8px; font-weight: 700; color: #ff3b30; text-transform: uppercase; letter-spacing: 1px; }
+.cal-day { font-size: 24px; font-weight: 300; color: #fff; line-height: 1.1; }
+
+/* Dock */
+.dock {
+margin: auto 16px 16px;
+background: rgba(255,255,255,0.15);
+backdrop-filter: blur(30px);
+border-radius: 28px;
+padding: 12px 20px;
+display: flex;
+justify-content: space-around;
+border: 1px solid rgba(255,255,255,0.2);
+flex-shrink: 0;
+}
+.dock .app-icon-label { display: none; }
+.dock .app-icon-img { width: 54px; height: 54px; }
+
+/* ── APP SCREENS ─────────────────────────────────────── */
+.app-screen {
+position: absolute;
+inset: 0;
+display: none;
+flex-direction: column;
+z-index: 20;
+animation: slideUp 0.3s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.app-screen.active { display: flex; }
+@keyframes slideUp {
+from { transform: translateY(100%); opacity: 0; }
+to { transform: translateY(0); opacity: 1; }
+}
+
+/* App nav bar */
+.app-nav {
+height: 59px;
+display: flex;
+align-items: flex-end;
+padding: 0 16px 10px;
+flex-shrink: 0;
+}
+.back-btn {
+background: none;
+border: none;
+color: #007aff;
+font-size: 16px;
+cursor: pointer;
+display: flex;
+align-items: center;
+gap: 4px;
+padding: 4px 8px 4px 0;
+font-family: inherit;
+}
+.back-btn::before { content: ‘‹’; font-size: 22px; line-height: 1; }
