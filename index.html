@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 
 <html lang="en">
 <head>
@@ -24,6 +24,7 @@ display: flex;
 align-items: center;
 justify-content: center;
 min-height: 100vh;
+min-height: 100dvh;
 font-family: -apple-system, ‘SF Pro Display’, sans-serif;
 overflow: hidden;
 }
@@ -41,6 +42,41 @@ box-shadow:
 0 0 0 1px #111,
 0 40px 120px rgba(0,0,0,0.9),
 inset 0 1px 0 rgba(255,255,255,0.1);
+transform-origin: center center;
+}
+
+/* ── RESPONSIVE SCALING ──────────────────────────────── */
+@media (max-height: 900px) {
+.phone { transform: scale(0.92); }
+}
+@media (max-height: 800px) {
+.phone { transform: scale(0.82); }
+}
+@media (max-height: 700px) {
+.phone { transform: scale(0.72); }
+}
+@media (max-height: 600px) {
+.phone { transform: scale(0.62); }
+}
+/* iPad — scale to fit comfortably */
+@media (min-width: 600px) and (max-width: 1200px) {
+.phone { transform: scale(0.85); }
+}
+@media (min-width: 600px) and (max-width: 1200px) and (max-height: 860px) {
+.phone { transform: scale(0.75); }
+}
+/* Small phones — fill screen edge to edge */
+@media (max-width: 430px) {
+body { align-items: flex-start; background: #000; }
+.phone {
+width: 100vw;
+height: 100vh;
+height: 100dvh;
+border-radius: 0;
+border: none;
+transform: none !important;
+box-shadow: none;
+}
 }
 
 /* Dynamic Island */
@@ -343,3 +379,1155 @@ padding: 4px 8px 4px 0;
 font-family: inherit;
 }
 .back-btn::before { content: ‘‹’; font-size: 22px; line-height: 1; }
+.app-title {
+flex: 1;
+text-align: center;
+font-size: 17px;
+font-weight: 600;
+color: #fff;
+margin-right: 50px;
+}
+
+/* Messages */
+#messages-screen { background: #000; }
+.messages-list { flex: 1; overflow-y: auto; padding: 0 0 20px; }
+.message-row {
+display: flex;
+align-items: center;
+padding: 14px 20px;
+border-bottom: 0.5px solid rgba(255,255,255,0.08);
+cursor: pointer;
+transition: background 0.1s;
+}
+.message-row:active { background: rgba(255,255,255,0.06); }
+.msg-avatar {
+width: 50px; height: 50px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 20px;
+font-weight: 600;
+color: #fff;
+flex-shrink: 0;
+margin-right: 14px;
+}
+.msg-body { flex: 1; min-width: 0; }
+.msg-name { font-size: 16px; font-weight: 500; color: #fff; }
+.msg-preview { font-size: 14px; color: rgba(255,255,255,0.4); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.msg-time { font-size: 12px; color: rgba(255,255,255,0.35); flex-shrink: 0; margin-left: 8px; }
+.msg-unread {
+width: 10px; height: 10px;
+background: #007aff;
+border-radius: 50%;
+flex-shrink: 0;
+margin-left: 8px;
+}
+.msg-search {
+margin: 10px 16px 4px;
+background: rgba(255,255,255,0.1);
+border-radius: 10px;
+padding: 8px 14px;
+color: rgba(255,255,255,0.4);
+font-size: 15px;
+display: flex;
+align-items: center;
+gap: 8px;
+}
+
+/* Thread / Chat View */
+#thread-screen {
+background: #000;
+}
+.thread-nav {
+display: flex;
+align-items: flex-end;
+padding: 0 16px 10px;
+height: 59px;
+flex-shrink: 0;
+}
+.thread-avatar-sm {
+width: 32px; height: 32px;
+border-radius: 50%;
+font-size: 14px;
+font-weight: 600;
+display: flex;
+align-items: center;
+justify-content: center;
+color: #fff;
+margin-right: 8px;
+}
+.thread-name { font-size: 16px; font-weight: 600; color: #fff; }
+.thread-status { font-size: 12px; color: rgba(255,255,255,0.4); }
+.thread-body { flex: 1; overflow-y: auto; padding: 16px 16px 0; display: flex; flex-direction: column; gap: 10px; }
+.bubble {
+max-width: 72%;
+padding: 10px 14px;
+border-radius: 18px;
+font-size: 15px;
+line-height: 1.4;
+}
+.bubble.received {
+background: rgba(255,255,255,0.12);
+color: #fff;
+align-self: flex-start;
+border-bottom-left-radius: 5px;
+}
+.bubble.sent {
+background: #007aff;
+color: #fff;
+align-self: flex-end;
+border-bottom-right-radius: 5px;
+}
+.bubble.tbd { opacity: 0.6; font-style: italic; }
+.thread-input {
+display: flex;
+align-items: center;
+padding: 10px 16px 30px;
+gap: 10px;
+border-top: 0.5px solid rgba(255,255,255,0.1);
+flex-shrink: 0;
+}
+.thread-input input {
+flex: 1;
+background: rgba(255,255,255,0.1);
+border: 1px solid rgba(255,255,255,0.15);
+border-radius: 20px;
+padding: 8px 16px;
+color: #fff;
+font-size: 15px;
+outline: none;
+font-family: inherit;
+}
+.thread-input input::placeholder { color: rgba(255,255,255,0.3); }
+.send-btn {
+width: 32px; height: 32px;
+background: #007aff;
+border-radius: 50%;
+border: none;
+color: #fff;
+font-size: 16px;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+/* Mail */
+#mail-screen { background: #000; }
+.mail-list { flex: 1; overflow-y: auto; }
+.mail-row {
+padding: 14px 20px;
+border-bottom: 0.5px solid rgba(255,255,255,0.08);
+cursor: pointer;
+transition: background 0.1s;
+}
+.mail-row:active { background: rgba(255,255,255,0.05); }
+.mail-sender { font-size: 16px; font-weight: 500; color: #fff; }
+.mail-subject { font-size: 14px; color: rgba(255,255,255,0.6); margin-top: 2px; }
+.mail-preview { font-size: 13px; color: rgba(255,255,255,0.3); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mail-meta { display: flex; justify-content: space-between; margin-bottom: 4px; }
+.mail-time { font-size: 12px; color: rgba(255,255,255,0.3); }
+.mail-dot { width: 8px; height: 8px; background: #007aff; border-radius: 50%; display: inline-block; margin-right: 8px; }
+
+/* Social */
+#social-screen { background: #000; }
+.social-nav-tabs {
+display: flex;
+border-bottom: 0.5px solid rgba(255,255,255,0.15);
+flex-shrink: 0;
+}
+.social-tab {
+flex: 1;
+padding: 12px;
+text-align: center;
+font-size: 14px;
+color: rgba(255,255,255,0.4);
+cursor: pointer;
+border-bottom: 2px solid transparent;
+}
+.social-tab.active { color: #fff; border-color: #fff; }
+.social-feed { flex: 1; overflow-y: auto; padding: 0 0 20px; }
+.post {
+padding: 16px 20px;
+border-bottom: 0.5px solid rgba(255,255,255,0.08);
+}
+.post-header { display: flex; gap: 12px; align-items: center; margin-bottom: 10px; }
+.post-avatar {
+width: 42px; height: 42px;
+border-radius: 50%;
+display: flex; align-items: center; justify-content: center;
+font-size: 18px; font-weight: 600; color: #fff;
+}
+.post-name { font-size: 15px; font-weight: 600; color: #fff; }
+.post-handle { font-size: 13px; color: rgba(255,255,255,0.4); }
+.post-time { font-size: 12px; color: rgba(255,255,255,0.3); margin-left: auto; }
+.post-text { font-size: 15px; color: rgba(255,255,255,0.85); line-height: 1.5; }
+.post-actions { display: flex; gap: 24px; margin-top: 12px; }
+.post-action { font-size: 13px; color: rgba(255,255,255,0.35); display: flex; align-items: center; gap: 5px; cursor: pointer; }
+
+/* Photos */
+#photos-screen { background: #000; }
+.photos-grid { flex: 1; overflow-y: auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; padding-top: 2px; }
+.photo-thumb {
+aspect-ratio: 1;
+background: #1a1a1a;
+display: flex; align-items: center; justify-content: center;
+font-size: 32px;
+cursor: pointer;
+transition: filter 0.1s;
+position: relative;
+overflow: hidden;
+}
+.photo-thumb:active { filter: brightness(0.7); }
+.photo-tbd {
+position: absolute; bottom: 4px; right: 4px;
+font-size: 8px; color: rgba(255,255,255,0.3);
+background: rgba(0,0,0,0.5); padding: 1px 4px; border-radius: 3px;
+}
+
+/* Calendar */
+#calendar-screen { background: #000; }
+.cal-header { padding: 10px 20px 6px; flex-shrink: 0; }
+.cal-month-nav { display: flex; justify-content: space-between; align-items: center; color: #fff; margin-bottom: 8px; }
+.cal-month-nav span { font-size: 20px; font-weight: 600; }
+.cal-month-nav button { background: none; border: none; color: #007aff; font-size: 20px; cursor: pointer; padding: 4px 8px; }
+.cal-days-header { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; }
+.cal-day-label { font-size: 12px; color: rgba(255,255,255,0.4); padding: 4px 0; }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; padding: 0 20px 10px; }
+.cal-cell { padding: 6px 0; font-size: 16px; color: rgba(255,255,255,0.7); cursor: pointer; }
+.cal-cell.today { background: #007aff; border-radius: 50%; color: #fff; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; margin: 0 auto; }
+.cal-cell.other-month { color: rgba(255,255,255,0.2); }
+.cal-events { flex: 1; overflow-y: auto; padding: 10px 20px; border-top: 0.5px solid rgba(255,255,255,0.1); }
+.cal-event { background: rgba(255,255,255,0.06); border-radius: 10px; padding: 12px 14px; margin-bottom: 10px; border-left: 3px solid #007aff; }
+.cal-event-title { font-size: 15px; font-weight: 500; color: #fff; }
+.cal-event-time { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+
+/* Maps */
+#maps-screen { background: #1a1a2e; }
+.maps-search { padding: 10px 16px; flex-shrink: 0; }
+.maps-search-bar {
+background: rgba(255,255,255,0.12);
+border-radius: 12px;
+padding: 10px 16px;
+color: rgba(255,255,255,0.4);
+font-size: 15px;
+display: flex; align-items: center; gap: 8px;
+}
+.map-placeholder {
+flex: 1;
+background:
+linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)),
+repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,255,255,0.03) 40px, rgba(255,255,255,0.03) 41px),
+repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,0.03) 40px, rgba(255,255,255,0.03) 41px),
+linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+display: flex; align-items: center; justify-content: center;
+position: relative;
+}
+.map-pin { font-size: 40px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5)); animation: bounce 1.5s infinite; }
+@keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+.map-tbd { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.7); color: rgba(255,255,255,0.4); padding: 8px 16px; border-radius: 20px; font-size: 13px; white-space: nowrap; }
+
+/* Utilities */
+#utilities-screen { background: #000; }
+.utils-grid { flex: 1; display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; padding: 16px 20px; align-content: start; }
+.util-card {
+background: rgba(255,255,255,0.06);
+border-radius: 16px;
+padding: 20px 16px;
+cursor: pointer;
+display: flex;
+flex-direction: column;
+gap: 8px;
+border: 1px solid rgba(255,255,255,0.08);
+transition: background 0.1s;
+}
+.util-card:active { background: rgba(255,255,255,0.12); }
+.util-icon { font-size: 28px; }
+.util-name { font-size: 15px; font-weight: 500; color: #fff; }
+.util-sub { font-size: 12px; color: rgba(255,255,255,0.35); }
+.util-card.gray-app { border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.03); }
+.util-card.gray-app .util-name { color: rgba(255,255,255,0.5); }
+
+/* Gray App */
+#gray-screen { background: #050505; }
+.gray-header { padding: 16px 20px 10px; flex-shrink: 0; text-align: center; }
+.gray-title { font-size: 18px; font-weight: 300; color: rgba(255,255,255,0.3); letter-spacing: 4px; text-transform: uppercase; }
+.gray-chat { flex: 1; overflow-y: auto; padding: 16px 20px; display: flex; flex-direction: column; gap: 14px; }
+.gray-bubble {
+background: rgba(255,255,255,0.05);
+border: 1px solid rgba(255,255,255,0.08);
+border-radius: 12px;
+padding: 12px 16px;
+font-size: 15px;
+color: rgba(255,255,255,0.6);
+line-height: 1.5;
+max-width: 85%;
+}
+.gray-bubble.system { color: rgba(255,255,255,0.3); font-size: 12px; text-align: center; align-self: center; background: transparent; border: none; }
+.gray-bubble.user-msg { align-self: flex-end; background: rgba(168,139,250,0.1); border-color: rgba(168,139,250,0.2); color: rgba(255,255,255,0.8); }
+.gray-input-row {
+display: flex; align-items: center; gap: 10px;
+padding: 10px 16px 30px;
+border-top: 1px solid rgba(255,255,255,0.05);
+flex-shrink: 0;
+}
+.gray-input {
+flex: 1;
+background: rgba(255,255,255,0.05);
+border: 1px solid rgba(255,255,255,0.1);
+border-radius: 20px;
+padding: 10px 16px;
+color: #fff;
+font-size: 15px;
+outline: none;
+font-family: inherit;
+}
+.gray-input::placeholder { color: rgba(255,255,255,0.2); }
+.gray-send {
+width: 36px; height: 36px;
+border-radius: 50%;
+background: rgba(168,139,250,0.3);
+border: none; color: #fff; cursor: pointer;
+display: flex; align-items: center; justify-content: center;
+font-size: 16px;
+}
+
+/* Gray unlock choices */
+.gray-choices { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+.gray-choice {
+background: rgba(255,255,255,0.06);
+border: 1px solid rgba(255,255,255,0.1);
+border-radius: 10px;
+padding: 10px 14px;
+font-size: 14px;
+color: rgba(255,255,255,0.65);
+cursor: pointer;
+transition: background 0.1s;
+}
+.gray-choice:active { background: rgba(168,139,250,0.2); }
+
+/* Generic TBD screen */
+.tbd-screen-body {
+flex: 1;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+color: rgba(255,255,255,0.2);
+gap: 12px;
+}
+.tbd-icon { font-size: 48px; }
+.tbd-label { font-size: 16px; letter-spacing: 2px; text-transform: uppercase; }
+.tbd-sub { font-size: 12px; color: rgba(255,255,255,0.12); }
+
+/* Home indicator */
+.home-indicator {
+position: absolute;
+bottom: 8px;
+left: 50%;
+transform: translateX(-50%);
+width: 134px;
+height: 5px;
+background: rgba(255,255,255,0.25);
+border-radius: 3px;
+z-index: 200;
+cursor: pointer;
+}
+
+/* Transition overlay */
+.flash {
+position: absolute;
+inset: 0;
+background: rgba(255,255,255,0.15);
+z-index: 300;
+pointer-events: none;
+opacity: 0;
+transition: opacity 0.15s;
+}
+.flash.show { opacity: 1; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+</style>
+
+</head>
+<body>
+
+<div class="phone">
+  <div class="dynamic-island"></div>
+  <div class="flash" id="flash"></div>
+  <div class="home-indicator" onclick="goHome()"></div>
+
+  <!-- ══ LOCK SCREEN ══ -->
+
+  <div class="screen active wallpaper" id="lock-screen" onclick="showPasscode()">
+    <div class="status-bar">
+      <span class="status-time" id="lock-time">3:28</span>
+      <div class="status-icons">
+        <span>▲</span>
+        <span>WiFi</span>
+        <div class="battery"></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;">
+      <div class="lock-time" id="lock-big-time">3:28</div>
+      <div class="lock-date" id="lock-date">Wednesday, February 25</div>
+      <div class="lock-hint">Tap to unlock</div>
+    </div>
+    <div class="swipe-indicator">Swipe up to open</div>
+  </div>
+
+  <!-- ══ PASSCODE SCREEN ══ -->
+
+  <div class="screen wallpaper" id="passcode-screen">
+    <div class="status-bar">
+      <span class="status-time">3:28</span>
+      <div class="status-icons"><div class="battery"></div></div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;flex:1;">
+      <div class="passcode-title">Enter Passcode</div>
+      <div class="passcode-subtitle">Phone Mystery</div>
+      <div class="passcode-dots">
+        <div class="passcode-dot" id="d0"></div>
+        <div class="passcode-dot" id="d1"></div>
+        <div class="passcode-dot" id="d2"></div>
+        <div class="passcode-dot" id="d3"></div>
+      </div>
+      <div class="numpad">
+        <button class="numpad-btn" onclick="numpad(1)">1<span class="sub"></span></button>
+        <button class="numpad-btn" onclick="numpad(2)">2<span class="sub">ABC</span></button>
+        <button class="numpad-btn" onclick="numpad(3)">3<span class="sub">DEF</span></button>
+        <button class="numpad-btn" onclick="numpad(4)">4<span class="sub">GHI</span></button>
+        <button class="numpad-btn" onclick="numpad(5)">5<span class="sub">JKL</span></button>
+        <button class="numpad-btn" onclick="numpad(6)">6<span class="sub">MNO</span></button>
+        <button class="numpad-btn" onclick="numpad(7)">7<span class="sub">PQRS</span></button>
+        <button class="numpad-btn" onclick="numpad(8)">8<span class="sub">TUV</span></button>
+        <button class="numpad-btn" onclick="numpad(9)">9<span class="sub">WXYZ</span></button>
+        <button class="numpad-btn special"></button>
+        <button class="numpad-btn" onclick="numpad(0)">0</button>
+        <button class="numpad-btn delete special" onclick="numpadDel()">⌫</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ HOME SCREEN ══ -->
+
+  <div class="screen wallpaper" id="home-screen">
+    <div class="status-bar">
+      <span class="status-time">3:28</span>
+      <div class="status-icons">
+        <span style="font-size:11px">▲▲</span>
+        <div class="battery"></div>
+      </div>
+    </div>
+
+```
+<div class="home-widgets">
+  <div class="widget widget-date">
+    <div class="day">Wed</div>
+    <div class="num">25</div>
+  </div>
+  <div class="widget widget-weather">
+    <div class="city">Cupertino</div>
+    <div class="temp">72°</div>
+    <div class="cond">Clear</div>
+  </div>
+</div>
+
+<div class="app-grid">
+  <div class="app-icon" onclick="openApp('messages')">
+    <div class="app-icon-img icon-messages">💬</div>
+    <div class="app-icon-label">Messages</div>
+  </div>
+  <div class="app-icon" onclick="openApp('mail')">
+    <div class="app-icon-img icon-mail">✉️</div>
+    <div class="app-icon-label">Mail</div>
+  </div>
+  <div class="app-icon" onclick="openApp('social')">
+    <div class="app-icon-img icon-social">🕊️</div>
+    <div class="app-icon-label">Social</div>
+  </div>
+  <div class="app-icon" onclick="openApp('ai')">
+    <div class="app-icon-img icon-ai">✦</div>
+    <div class="app-icon-label">AI</div>
+  </div>
+  <div class="app-icon" onclick="openApp('photos')">
+    <div class="app-icon-img icon-photos">🌈</div>
+    <div class="app-icon-label">Photos</div>
+  </div>
+  <div class="app-icon" onclick="openApp('calendar')">
+    <div class="app-icon-img icon-calendar">
+      <div class="calendar-inner"><div class="cal-month">Feb</div><div class="cal-day">25</div></div>
+    </div>
+    <div class="app-icon-label">Calendar</div>
+  </div>
+  <div class="app-icon" onclick="openApp('maps')">
+    <div class="app-icon-img icon-maps">🗺️</div>
+    <div class="app-icon-label">Maps</div>
+  </div>
+  <div class="app-icon" onclick="openApp('utilities')">
+    <div class="app-icon-img icon-utilities">🔧</div>
+    <div class="app-icon-label">Utilities</div>
+  </div>
+</div>
+
+<div style="flex:1;"></div>
+
+<div class="dock">
+  <div class="app-icon" onclick="openApp('messages')">
+    <div class="app-icon-img icon-messages">💬</div>
+  </div>
+  <div class="app-icon" onclick="openApp('mail')">
+    <div class="app-icon-img icon-mail">✉️</div>
+  </div>
+  <div class="app-icon" onclick="openApp('photos')">
+    <div class="app-icon-img icon-photos">🌈</div>
+  </div>
+  <div class="app-icon" onclick="openApp('maps')">
+    <div class="app-icon-img icon-maps">🗺️</div>
+  </div>
+</div>
+```
+
+  </div>
+
+  <!-- ══ MESSAGES ══ -->
+
+  <div class="app-screen" id="messages-screen">
+    <div style="background:#000;padding:59px 0 0;flex-shrink:0;">
+      <div style="display:flex;align-items:center;padding:0 16px 10px;">
+        <button class="back-btn" onclick="closeApp('messages')"></button>
+        <div class="app-title">Messages</div>
+      </div>
+      <div class="msg-search">🔍 Search</div>
+    </div>
+    <div class="messages-list">
+      <div class="message-row" onclick="openThread('mom')">
+        <div class="msg-avatar" style="background:linear-gradient(135deg,#e91e63,#c2185b)">M</div>
+        <div class="msg-body">
+          <div class="msg-name">Mom</div>
+          <div class="msg-preview">TBD — placeholder content</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+          <div class="msg-time">9:41 AM</div>
+          <div class="msg-unread"></div>
+        </div>
+      </div>
+      <div class="message-row" onclick="openThread('dad')">
+        <div class="msg-avatar" style="background:linear-gradient(135deg,#1565c0,#0d47a1)">D</div>
+        <div class="msg-body">
+          <div class="msg-name">Dad</div>
+          <div class="msg-preview">lol it's so annoying</div>
+        </div>
+        <div class="msg-time">Yesterday</div>
+      </div>
+      <div class="message-row" onclick="openThread('sister')">
+        <div class="msg-avatar" style="background:linear-gradient(135deg,#9c27b0,#6a1b9a)">S</div>
+        <div class="msg-body">
+          <div class="msg-name">Younger Sister</div>
+          <div class="msg-preview">TBD — placeholder content</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+          <div class="msg-time">Tue</div>
+          <div class="msg-unread"></div>
+        </div>
+      </div>
+      <div class="message-row" onclick="openThread('girlfriend')">
+        <div class="msg-avatar" style="background:linear-gradient(135deg,#e91e63,#ad1457)">G</div>
+        <div class="msg-body">
+          <div class="msg-name">Girlfriend</div>
+          <div class="msg-preview">TBD — placeholder content</div>
+        </div>
+        <div class="msg-time">Mon</div>
+      </div>
+      <div class="message-row" onclick="openThread('coworker')">
+        <div class="msg-avatar" style="background:linear-gradient(135deg,#00796b,#004d40)">C</div>
+        <div class="msg-body">
+          <div class="msg-name">Coworker</div>
+          <div class="msg-preview">TBD — placeholder content</div>
+        </div>
+        <div class="msg-time">Mon</div>
+      </div>
+      <div class="message-row" onclick="openThread('bestfriend')">
+        <div class="msg-avatar" style="background:linear-gradient(135deg,#ff9800,#e65100)">B</div>
+        <div class="msg-body">
+          <div class="msg-name">Best Friend</div>
+          <div class="msg-preview">TBD — placeholder content</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+          <div class="msg-time">Sun</div>
+          <div class="msg-unread"></div>
+        </div>
+      </div>
+      <div class="message-row" onclick="openThread('therapist')">
+        <div class="msg-avatar" style="background:linear-gradient(135deg,#5c6bc0,#283593)">T</div>
+        <div class="msg-body">
+          <div class="msg-name">Therapist</div>
+          <div class="msg-preview">TBD — placeholder content</div>
+        </div>
+        <div class="msg-time">Fri</div>
+      </div>
+      <div class="message-row" onclick="openThread('unknown')">
+        <div class="msg-avatar" style="background:linear-gradient(135deg,#424242,#212121)">?</div>
+        <div class="msg-body">
+          <div class="msg-name">Unknown Number</div>
+          <div class="msg-preview">TBD — placeholder content</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+          <div class="msg-time">Thurs</div>
+          <div class="msg-unread"></div>
+        </div>
+      </div>
+      <div class="message-row" onclick="openThread('dealer')">
+        <div class="msg-avatar" style="background:linear-gradient(135deg,#388e3c,#1b5e20)">D</div>
+        <div class="msg-body">
+          <div class="msg-name">Dealer</div>
+          <div class="msg-preview">TBD — placeholder content</div>
+        </div>
+        <div class="msg-time">Wed</div>
+      </div>
+      <div class="message-row" onclick="openThread('neighbor')">
+        <div class="msg-avatar" style="background:linear-gradient(135deg,#795548,#4e342e)">N</div>
+        <div class="msg-body">
+          <div class="msg-name">Neighbor</div>
+          <div class="msg-preview">TBD — placeholder content</div>
+        </div>
+        <div class="msg-time">Tue</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ THREAD / CHAT ══ -->
+
+  <div class="app-screen" id="thread-screen">
+    <div style="background:#000;padding:59px 0 0;flex-shrink:0;">
+      <div class="thread-nav">
+        <button class="back-btn" onclick="closeThread()"></button>
+        <div>
+          <div class="thread-name" id="thread-title">Mom</div>
+          <div class="thread-status">iMessage</div>
+        </div>
+      </div>
+    </div>
+    <div class="thread-body" id="thread-body">
+      <!-- bubbles injected here -->
+    </div>
+    <div class="thread-input">
+      <span>📷</span>
+      <input type="text" placeholder="iMessage" readonly>
+      <button class="send-btn">↑</button>
+    </div>
+  </div>
+
+  <!-- ══ MAIL ══ -->
+
+  <div class="app-screen" id="mail-screen">
+    <div style="background:#000;padding:59px 0 0;flex-shrink:0;">
+      <div style="display:flex;align-items:center;padding:0 16px 10px;">
+        <button class="back-btn" onclick="closeApp('mail')"></button>
+        <div class="app-title">Inbox</div>
+      </div>
+    </div>
+    <div class="mail-list">
+      <div class="mail-row">
+        <div class="mail-meta"><div class="mail-sender"><span class="mail-dot"></span>Unknown Sender</div><div class="mail-time">9:41 AM</div></div>
+        <div class="mail-subject">TBD — Subject Line</div>
+        <div class="mail-preview">TBD — Email content placeholder</div>
+      </div>
+      <div class="mail-row">
+        <div class="mail-meta"><div class="mail-sender">Work Account</div><div class="mail-time">Yesterday</div></div>
+        <div class="mail-subject">TBD — Subject Line</div>
+        <div class="mail-preview">TBD — Email content placeholder</div>
+      </div>
+      <div class="mail-row">
+        <div class="mail-meta"><div class="mail-sender"><span class="mail-dot"></span>Personal</div><div class="mail-time">Tue</div></div>
+        <div class="mail-subject">TBD — Subject Line</div>
+        <div class="mail-preview">TBD — Email content placeholder</div>
+      </div>
+      <div class="mail-row">
+        <div class="mail-meta"><div class="mail-sender">Newsletter</div><div class="mail-time">Mon</div></div>
+        <div class="mail-subject">TBD — Subject Line</div>
+        <div class="mail-preview">TBD — Email content placeholder</div>
+      </div>
+      <div style="text-align:center;padding:30px;color:rgba(255,255,255,0.2);font-size:13px;">+ More messages — TBD</div>
+    </div>
+  </div>
+
+  <!-- ══ SOCIAL ══ -->
+
+  <div class="app-screen" id="social-screen">
+    <div style="background:#000;padding:59px 0 0;flex-shrink:0;">
+      <div style="display:flex;align-items:center;padding:0 16px 4px;">
+        <button class="back-btn" onclick="closeApp('social')"></button>
+        <div class="app-title">Social</div>
+      </div>
+      <div class="social-nav-tabs">
+        <div class="social-tab active">For You</div>
+        <div class="social-tab">Following</div>
+        <div class="social-tab">Mentions</div>
+      </div>
+    </div>
+    <div class="social-feed">
+      <div class="post">
+        <div class="post-header">
+          <div class="post-avatar" style="background:linear-gradient(135deg,#e91e63,#c2185b)">M</div>
+          <div><div class="post-name">TBD — User</div><div class="post-handle">@tbd</div></div>
+          <div class="post-time">2h</div>
+        </div>
+        <div class="post-text">TBD — post content placeholder for narrative branch</div>
+        <div class="post-actions">
+          <div class="post-action">💬 TBD</div>
+          <div class="post-action">🔁 TBD</div>
+          <div class="post-action">♡ TBD</div>
+        </div>
+      </div>
+      <div class="post">
+        <div class="post-header">
+          <div class="post-avatar" style="background:linear-gradient(135deg,#ff9800,#e65100)">B</div>
+          <div><div class="post-name">TBD — User</div><div class="post-handle">@tbd</div></div>
+          <div class="post-time">5h</div>
+        </div>
+        <div class="post-text">TBD — post content placeholder for narrative branch</div>
+        <div class="post-actions">
+          <div class="post-action">💬 TBD</div>
+          <div class="post-action">🔁 TBD</div>
+          <div class="post-action">♡ TBD</div>
+        </div>
+      </div>
+      <div style="text-align:center;padding:30px;color:rgba(255,255,255,0.2);font-size:13px;">More posts — TBD</div>
+    </div>
+  </div>
+
+  <!-- ══ PHOTOS ══ -->
+
+  <div class="app-screen" id="photos-screen">
+    <div style="background:#000;padding:59px 0 0;flex-shrink:0;">
+      <div style="display:flex;align-items:center;padding:0 16px 10px;">
+        <button class="back-btn" onclick="closeApp('photos')"></button>
+        <div class="app-title">Photos</div>
+      </div>
+    </div>
+    <div class="photos-grid">
+      <div class="photo-thumb" style="background:linear-gradient(135deg,#1a1a2e,#16213e)">🌙<span class="photo-tbd">TBD</span></div>
+      <div class="photo-thumb" style="background:linear-gradient(135deg,#0d1117,#1a2035)">🏙️<span class="photo-tbd">TBD</span></div>
+      <div class="photo-thumb" style="background:linear-gradient(135deg,#1a0a0a,#2d1515)">🌲<span class="photo-tbd">TBD</span></div>
+      <div class="photo-thumb" style="background:linear-gradient(135deg,#0a1a0a,#152d15)">🌊<span class="photo-tbd">TBD</span></div>
+      <div class="photo-thumb" style="background:linear-gradient(135deg,#1a1a0a,#2d2d15)">☁️<span class="photo-tbd">TBD</span></div>
+      <div class="photo-thumb" style="background:linear-gradient(135deg,#1a0a1a,#2d152d)">🎭<span class="photo-tbd">TBD</span></div>
+      <div class="photo-thumb" style="background:linear-gradient(135deg,#0a0a1a,#15152d)">🏠<span class="photo-tbd">TBD</span></div>
+      <div class="photo-thumb" style="background:linear-gradient(135deg,#1a1212,#2d1a1a)">🚗<span class="photo-tbd">TBD</span></div>
+      <div class="photo-thumb" style="background:linear-gradient(135deg,#121a12,#1a2d1a)">👤<span class="photo-tbd">TBD</span></div>
+    </div>
+  </div>
+
+  <!-- ══ CALENDAR ══ -->
+
+  <div class="app-screen" id="calendar-screen">
+    <div style="background:#000;padding:59px 0 0;flex-shrink:0;">
+      <div style="display:flex;align-items:center;padding:0 16px 10px;">
+        <button class="back-btn" onclick="closeApp('calendar')"></button>
+        <div class="app-title">Calendar</div>
+      </div>
+    </div>
+    <div class="cal-header">
+      <div class="cal-month-nav">
+        <button>‹</button>
+        <span>February 2026</span>
+        <button>›</button>
+      </div>
+      <div class="cal-days-header">
+        <div class="cal-day-label">S</div><div class="cal-day-label">M</div><div class="cal-day-label">T</div>
+        <div class="cal-day-label">W</div><div class="cal-day-label">T</div><div class="cal-day-label">F</div><div class="cal-day-label">S</div>
+      </div>
+    </div>
+    <div class="cal-grid">
+      <div class="cal-cell other-month">26</div><div class="cal-cell other-month">27</div><div class="cal-cell other-month">28</div><div class="cal-cell other-month">29</div><div class="cal-cell other-month">30</div><div class="cal-cell other-month">31</div><div class="cal-cell">1</div>
+      <div class="cal-cell">2</div><div class="cal-cell">3</div><div class="cal-cell">4</div><div class="cal-cell">5</div><div class="cal-cell">6</div><div class="cal-cell">7</div><div class="cal-cell">8</div>
+      <div class="cal-cell">9</div><div class="cal-cell">10</div><div class="cal-cell">11</div><div class="cal-cell">12</div><div class="cal-cell">13</div><div class="cal-cell">14</div><div class="cal-cell">15</div>
+      <div class="cal-cell">16</div><div class="cal-cell">17</div><div class="cal-cell">18</div><div class="cal-cell">19</div><div class="cal-cell">20</div><div class="cal-cell">21</div><div class="cal-cell">22</div>
+      <div class="cal-cell">23</div><div class="cal-cell">24</div><div class="cal-cell today">25</div><div class="cal-cell">26</div><div class="cal-cell">27</div><div class="cal-cell">28</div>
+    </div>
+    <div class="cal-events">
+      <div style="font-size:13px;color:rgba(255,255,255,0.3);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;">Today</div>
+      <div class="cal-event">
+        <div class="cal-event-title">TBD — Event Placeholder</div>
+        <div class="cal-event-time">All Day</div>
+      </div>
+      <div class="cal-event" style="border-color:#a78bfa">
+        <div class="cal-event-title">TBD — Event Placeholder</div>
+        <div class="cal-event-time">2:00 PM – 3:00 PM</div>
+      </div>
+      <div class="cal-event" style="border-color:#f43f5e">
+        <div class="cal-event-title">TBD — Event Placeholder</div>
+        <div class="cal-event-time">7:00 PM</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ MAPS ══ -->
+
+  <div class="app-screen" id="maps-screen">
+    <div style="background:#000;padding:59px 0 0;flex-shrink:0;">
+      <div style="display:flex;align-items:center;padding:0 16px 10px;">
+        <button class="back-btn" onclick="closeApp('maps')"></button>
+        <div class="app-title">Maps</div>
+      </div>
+      <div class="maps-search">
+        <div class="maps-search-bar">🔍 Search for a place</div>
+      </div>
+    </div>
+    <div class="map-placeholder">
+      <div class="map-pin">📍</div>
+      <div class="map-tbd">Map content — TBD narrative location</div>
+    </div>
+  </div>
+
+  <!-- ══ UTILITIES ══ -->
+
+  <div class="app-screen" id="utilities-screen">
+    <div style="background:#000;padding:59px 0 0;flex-shrink:0;">
+      <div style="display:flex;align-items:center;padding:0 16px 10px;">
+        <button class="back-btn" onclick="closeApp('utilities')"></button>
+        <div class="app-title">Utilities</div>
+      </div>
+    </div>
+    <div class="utils-grid">
+      <div class="util-card" onclick="openApp('flashlight')">
+        <div class="util-icon">🔦</div>
+        <div class="util-name">Flashlight</div>
+        <div class="util-sub">TBD</div>
+      </div>
+      <div class="util-card" onclick="openApp('calculator')">
+        <div class="util-icon">🧮</div>
+        <div class="util-name">Calculator</div>
+        <div class="util-sub">TBD</div>
+      </div>
+      <div class="util-card" onclick="openApp('voice')">
+        <div class="util-icon">🎙️</div>
+        <div class="util-name">Voice Memos</div>
+        <div class="util-sub">TBD</div>
+      </div>
+      <div class="util-card" onclick="openApp('compass')">
+        <div class="util-icon">🧭</div>
+        <div class="util-name">Compass</div>
+        <div class="util-sub">TBD</div>
+      </div>
+      <div class="util-card gray-app" onclick="openApp('gray')" style="grid-column:span 2">
+        <div class="util-icon">◻</div>
+        <div class="util-name">— — —</div>
+        <div class="util-sub">Unknown application</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ GRAY APP ══ -->
+
+  <div class="app-screen" id="gray-screen">
+    <div style="background:#050505;padding:59px 0 0;flex-shrink:0;">
+      <div style="display:flex;align-items:center;padding:0 16px 6px;">
+        <button class="back-btn" onclick="closeApp('gray')" style="color:rgba(255,255,255,0.3)"></button>
+        <div class="app-title" style="color:rgba(255,255,255,0.3);font-weight:300;letter-spacing:2px;font-size:14px;">— — —</div>
+      </div>
+    </div>
+    <div class="gray-chat" id="gray-chat">
+      <div class="gray-bubble system">System initialized. Awaiting input.</div>
+      <div class="gray-bubble">_</div>
+    </div>
+    <div class="gray-input-row">
+      <input class="gray-input" id="gray-input" type="text" placeholder="type something..." autocomplete="off" autocorrect="off">
+      <button class="gray-send" onclick="graySubmit()">↑</button>
+    </div>
+  </div>
+
+  <!-- ══ GENERIC TBD SCREENS ══ -->
+
+  <div class="app-screen" id="flashlight-screen" style="background:#000;">
+    <div style="background:#000;padding:59px 0 0;flex-shrink:0;">
+      <div style="display:flex;align-items:center;padding:0 16px 10px;">
+        <button class="back-btn" onclick="closeApp('flashlight')"></button>
+        <div class="app-title">Flashlight</div>
+      </div>
+    </div>
+    <div class="tbd-screen-body"><div class="tbd-icon">🔦</div><div class="tbd-label">TBD</div><div class="tbd-sub">Content not yet written</div></div>
+  </div>
+  <div class="app-screen" id="calculator-screen" style="background:#000;">
+    <div style="background:#000;padding:59px 0 0;flex-shrink:0;">
+      <div style="display:flex;align-items:center;padding:0 16px 10px;">
+        <button class="back-btn" onclick="closeApp('calculator')"></button>
+        <div class="app-title">Calculator</div>
+      </div>
+    </div>
+    <div class="tbd-screen-body"><div class="tbd-icon">🧮</div><div class="tbd-label">TBD</div><div class="tbd-sub">Content not yet written</div></div>
+  </div>
+  <div class="app-screen" id="voice-screen" style="background:#000;">
+    <div style="background:#000;padding:59px 0 0;flex-shrink:0;">
+      <div style="display:flex;align-items:center;padding:0 16px 10px;">
+        <button class="back-btn" onclick="closeApp('voice')"></button>
+        <div class="app-title">Voice Memos</div>
+      </div>
+    </div>
+    <div class="tbd-screen-body"><div class="tbd-icon">🎙️</div><div class="tbd-label">TBD</div><div class="tbd-sub">Content not yet written</div></div>
+  </div>
+  <div class="app-screen" id="compass-screen" style="background:#000;">
+    <div style="background:#000;padding:59px 0 0;flex-shrink:0;">
+      <div style="display:flex;align-items:center;padding:0 16px 10px;">
+        <button class="back-btn" onclick="closeApp('compass')"></button>
+        <div class="app-title">Compass</div>
+      </div>
+    </div>
+    <div class="tbd-screen-body"><div class="tbd-icon">🧭</div><div class="tbd-label">TBD</div><div class="tbd-sub">Content not yet written</div></div>
+  </div>
+  <div class="app-screen" id="ai-screen" style="background:#000;">
+    <div style="background:#000;padding:59px 0 0;flex-shrink:0;">
+      <div style="display:flex;align-items:center;padding:0 16px 10px;">
+        <button class="back-btn" onclick="closeApp('ai')"></button>
+        <div class="app-title">AI</div>
+      </div>
+    </div>
+    <div class="tbd-screen-body"><div class="tbd-icon">✦</div><div class="tbd-label">TBD</div><div class="tbd-sub">Content not yet written</div></div>
+  </div>
+
+</div><!-- /phone -->
+
+<script>
+// ── STATE ────────────────────────────────────────────────
+const PASSCODE = '0214';
+let passcodeInput = '';
+let grayUnlocked = false;
+let grayStage = 0;
+
+// ── CLOCK ────────────────────────────────────────────────
+function updateClock() {
+  const now = new Date();
+  const h = now.getHours().toString().padStart(2,'0');
+  const m = now.getMinutes().toString().padStart(2,'0');
+  const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const t = `${h}:${m}`;
+  const d = `${days[now.getDay()]}, ${months[now.getMonth()]} ${now.getDate()}`;
+  ['lock-time','lock-big-time'].forEach(id=>{ const el=document.getElementById(id); if(el) el.textContent=t; });
+  const ld = document.getElementById('lock-date'); if(ld) ld.textContent=d;
+}
+updateClock();
+setInterval(updateClock, 30000);
+
+// ── SCREENS ──────────────────────────────────────────────
+function show(id) {
+  document.querySelectorAll('.screen,.app-screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function flash(cb) {
+  const f = document.getElementById('flash');
+  f.classList.add('show');
+  setTimeout(()=>{ f.classList.remove('show'); cb(); }, 120);
+}
+
+// ── LOCK ─────────────────────────────────────────────────
+function showPasscode() {
+  show('passcode-screen');
+  passcodeInput = '';
+  updateDots();
+}
+
+// ── PASSCODE ─────────────────────────────────────────────
+function updateDots() {
+  for(let i=0;i<4;i++){
+    const d=document.getElementById('d'+i);
+    d.classList.toggle('filled', i < passcodeInput.length);
+    d.classList.remove('error');
+  }
+}
+
+function numpad(n) {
+  if(passcodeInput.length >= 4) return;
+  passcodeInput += n;
+  updateDots();
+  if(passcodeInput.length === 4) {
+    setTimeout(()=>{
+      if(passcodeInput === PASSCODE) {
+        flash(()=>show('home-screen'));
+      } else {
+        for(let i=0;i<4;i++) document.getElementById('d'+i).classList.add('error');
+        setTimeout(()=>{ passcodeInput=''; updateDots(); }, 600);
+      }
+    }, 150);
+  }
+}
+
+function numpadDel() {
+  passcodeInput = passcodeInput.slice(0,-1);
+  updateDots();
+}
+
+// ── HOME ─────────────────────────────────────────────────
+function goHome() {
+  document.querySelectorAll('.app-screen').forEach(s=>s.classList.remove('active'));
+}
+
+// ── APPS ─────────────────────────────────────────────────
+function openApp(name) {
+  document.getElementById(name+'-screen').classList.add('active');
+}
+function closeApp(name) {
+  document.getElementById(name+'-screen').classList.remove('active');
+}
+
+// ── THREADS ──────────────────────────────────────────────
+const threadData = {
+  mom:        { name: 'Mom',           color: 'linear-gradient(135deg,#e91e63,#c2185b)', initial: 'M', messages: null },
+  dad:        { name: 'Dad',           color: 'linear-gradient(135deg,#1565c0,#0d47a1)', initial: 'D',
+    messages: [
+      { type: 'received', text: "How's the snow by you?" },
+      { type: 'sent',     text: "Crazy. Can't even get to work because the river's frozen." },
+      { type: 'received', text: "Wow. Never heard that before." },
+      { type: 'sent',     text: "lol it's so annoying" },
+    ]
+  },
+  sister:     { name: 'Younger Sister',color: 'linear-gradient(135deg,#9c27b0,#6a1b9a)', initial: 'S', messages: null },
+  girlfriend: { name: 'Girlfriend',    color: 'linear-gradient(135deg,#e91e63,#ad1457)', initial: 'G', messages: null },
+  coworker:   { name: 'Coworker',      color: 'linear-gradient(135deg,#00796b,#004d40)', initial: 'C', messages: null },
+  bestfriend: { name: 'Best Friend',   color: 'linear-gradient(135deg,#ff9800,#e65100)', initial: 'B', messages: null },
+  therapist:  { name: 'Therapist',     color: 'linear-gradient(135deg,#5c6bc0,#283593)', initial: 'T', messages: null },
+  unknown:    { name: 'Unknown Number',color: 'linear-gradient(135deg,#424242,#212121)', initial: '?', messages: null },
+  dealer:     { name: 'Dealer',        color: 'linear-gradient(135deg,#388e3c,#1b5e20)', initial: 'D', messages: null },
+  neighbor:   { name: 'Neighbor',      color: 'linear-gradient(135deg,#795548,#4e342e)', initial: 'N', messages: null }
+};
+
+function openThread(id) {
+  const t = threadData[id];
+  document.getElementById('thread-title').textContent = t.name;
+
+  const body = document.getElementById('thread-body');
+
+  if(t.messages) {
+    // Render real conversation
+    const bubbles = t.messages.map(m =>
+      `<div class="bubble ${m.type}">${m.text}</div>`
+    ).join('');
+    body.innerHTML = `
+      <div style="text-align:center;font-size:12px;color:rgba(255,255,255,0.2);margin-bottom:10px;">${t.name} · iMessage</div>
+      ${bubbles}
+    `;
+  } else {
+    // TBD placeholder
+    body.innerHTML = `
+      <div style="text-align:center;font-size:12px;color:rgba(255,255,255,0.2);margin-bottom:10px;">${t.name} · iMessage</div>
+      <div class="bubble received tbd">TBD — incoming message placeholder</div>
+      <div class="bubble sent tbd">TBD — outgoing message placeholder</div>
+      <div class="bubble received tbd">TBD — incoming message placeholder</div>
+      <div class="bubble sent tbd">TBD — outgoing message placeholder</div>
+      <div class="bubble received tbd">TBD — incoming message placeholder</div>
+    `;
+  }
+
+  document.getElementById('thread-screen').classList.add('active');
+}
+
+function closeThread() {
+  document.getElementById('thread-screen').classList.remove('active');
+}
+
+// ── GRAY APP ─────────────────────────────────────────────
+const grayResponses = {
+  hello: {
+    msg: "Hello. I've been waiting.\n\nChoose how you'd like to proceed:",
+    choices: ['Tell me what happened', 'I don\'t know who you are', 'Why are you on this phone?']
+  },
+  choice0: { msg: "TBD — Narrative branch: Tell me what happened\n\nThis path continues in the next development stage.", choices: null },
+  choice1: { msg: "TBD — Narrative branch: I don't know who you are\n\nThis path continues in the next development stage.", choices: null },
+  choice2: { msg: "TBD — Narrative branch: Why are you on this phone?\n\nThis path continues in the next development stage.", choices: null },
+};
+
+function grayAppend(text, cls) {
+  const chat = document.getElementById('gray-chat');
+  const div = document.createElement('div');
+  div.className = 'gray-bubble ' + (cls||'');
+  div.textContent = text;
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function grayChoice(idx) {
+  const choiceTexts = ['Tell me what happened', 'I don\'t know who you are', 'Why are you on this phone?'];
+  grayAppend(choiceTexts[idx], 'user-msg');
+  // remove choices
+  document.querySelectorAll('.gray-choices').forEach(el=>el.remove());
+  setTimeout(()=>{
+    const r = grayResponses['choice'+idx];
+    grayAppend(r.msg);
+  }, 600);
+}
+
+function graySubmit() {
+  const inp = document.getElementById('gray-input');
+  const val = inp.value.trim().toLowerCase();
+  if(!val) return;
+  grayAppend(inp.value.trim(), 'user-msg');
+  inp.value = '';
+
+  // remove the initial "_" placeholder if present
+  const chat = document.getElementById('gray-chat');
+
+  setTimeout(()=>{
+    if(val === 'hello' && !grayUnlocked) {
+      grayUnlocked = true;
+      const r = grayResponses.hello;
+      grayAppend(r.msg);
+      // append choices
+      const div = document.createElement('div');
+      div.className = 'gray-choices';
+      r.choices.forEach((c,i)=>{
+        const btn = document.createElement('div');
+        btn.className = 'gray-choice';
+        btn.textContent = c;
+        btn.onclick = ()=>grayChoice(i);
+        div.appendChild(btn);
+      });
+      chat.appendChild(div);
+      chat.scrollTop = chat.scrollHeight;
+    } else if(!grayUnlocked) {
+      grayAppend('...');
+      setTimeout(()=>grayAppend('_'), 800);
+    } else {
+      grayAppend('TBD — further narrative branching to be written.');
+    }
+  }, 400);
+}
+
+document.getElementById('gray-input').addEventListener('keydown', e=>{
+  if(e.key === 'Enter') graySubmit();
+});
+
+// ── RESPONSIVE SCALING ───────────────────────────────────
+function scalePhone() {
+  const phone = document.querySelector('.phone');
+  const PHONE_W = 393;
+  const PHONE_H = 852;
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+
+  if(vw <= 430) {
+    phone.style.transform = 'none';
+    phone.style.width = vw + 'px';
+    phone.style.height = vh + 'px';
+    phone.style.borderRadius = '0';
+    phone.style.border = 'none';
+    return;
+  }
+
+  const scaleX = (vw - 40) / PHONE_W;
+  const scaleY = (vh - 40) / PHONE_H;
+  const scale = Math.min(scaleX, scaleY, 1);
+  phone.style.transform = 'scale(' + scale + ')';
+}
+
+scalePhone();
+window.addEventListener('resize', scalePhone);
+</script>
+
+</body>
+</html>
